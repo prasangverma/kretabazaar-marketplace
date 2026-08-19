@@ -1,29 +1,47 @@
-# 🛒 Kretabazaar — Behance-Style Custom Product Marketplace
+# 🛍️ Kretabazaar — Full-Stack Dropshipping E-Commerce Platform
 
-Kretabazaar is a modern, responsive Behance-style e-commerce marketplace for selling custom studio products, digital assets, audiophile acoustics, EDC hardware, and streetwear apparel. Built with Next.js 15, React 19, TypeScript, and Tailwind CSS.
+Kretabazaar is a high-converting, production-ready Full-Stack Dropshipping E-Commerce Platform built with Next.js 15, React 19, TypeScript, Tailwind CSS v4, Prisma ORM, and Stripe API integrations.
 
 ## 🚀 Key Features
 
-- **Behance-Style E-Commerce Grid**: Full-bleed product preview cards, seller avatars, product titles, prices (`$49.99`), and hover "Add to Cart 🛒" buttons.
-- **Product Categories**: *Apparel*, *Electronics*, *Digital Goods*, *Accessories*, *Home & Studio*, and *Audio*.
-- **Shopping Cart Drawer**: Slide-over cart bag with free shipping progress bar, promo code applicator (`KRETA15`), quantity controls, and subtotal calculation.
-- **Multi-Gateway Checkout**: Multi-step checkout integration previewing **Stripe**, **PayPal**, **Razorpay**, and **Cash on Delivery (COD)**.
-- **Multi-Vendor Seller Profiles**: Dedicated seller cards, seller titles, and verified seller badges.
-- **Quick Inspect Modal**: Popup preview dialog showing image gallery, variant options, stock urgency meter, and specifications.
+- **Database ORM (Prisma & SQLite/PostgreSQL)**: Data models for `User`, `Address`, `Product`, `ProductVariant`, `Category`, `Collection`, `Cart`, `CartItem`, `Order`, `OrderItem`, `Review`, and `DiscountCode`.
+- **API Route Handlers**:
+  - `GET /api/products`: Advanced category/price filtering, search, sorting, and pagination.
+  - `GET /api/products/[id]`: Product details with variants and verified customer reviews.
+  - `POST /api/cart` & `/api/cart/sync`: Persistent guest session token cart & account cart merging upon login.
+  - `POST /api/checkout`: Stripe Checkout Session creation with dynamic line items & coupon calculations (`KRETA15`).
+  - `POST /api/webhooks/stripe`: Secure webhook signature verification, order creation, inventory decrementing, and email trigger simulation.
+  - `GET /api/orders`: Public logistics package tracking lookup API returning carrier info (FedEx, CJ Dropshipping) and milestone status.
+  - `POST /api/reviews`: Product review submission with verified buyer validation.
+- **Conversion UI/UX**:
+  - Promotional hero banner with urgent flash sale countdown ticker (*05h:22m:41s*) and direct "Shop Now" CTAs.
+  - Slide-over Cart Drawer with free shipping progress bar meter and coupon applicator.
+  - Interactive live order tracking page (`/track-order`) displaying step-by-step delivery progress timelines.
+  - Policy pages, payment gateway badges (**Stripe**, **PayPal**, **Razorpay**, **Cash on Delivery**), and VIP discount newsletter form.
 
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 15 (App Router)
 - **UI Library**: React 19
+- **ORM & Database**: Prisma ORM with SQLite (`prisma/dev.db`) / PostgreSQL
+- **Payments**: Stripe API SDK & Webhook verification
+- **Validation**: Zod schema validation
 - **State Management**: React Context API
-- **Type Safety**: TypeScript 5
 - **Styling**: Tailwind CSS v4
 - **Icons**: Lucide React
 
-## 🖥️ Local Development
+## 🖥️ Local Setup & Seed Commands
 
 ```bash
 export PATH=/home/prasang/node-v20/bin:$PATH
+
+# 1. Sync Database Schema
+npx prisma db push
+
+# 2. Seed Database with Products & Sample Orders
+npx tsx prisma/seed.ts
+
+# 3. Start Next.js Development Server
 npm run dev
 ```
 
