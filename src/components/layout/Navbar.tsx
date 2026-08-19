@@ -3,23 +3,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Search, ShoppingBag, Command, Plus, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingBag, Command, Truck, Tag, User, Menu, X, Sparkles } from 'lucide-react';
 import { useStore } from '@/context/StoreContext';
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { cart, setIsCartOpen, setIsSearchOpen, setIsAuthOpen, user, addToast } = useStore();
+  const { cart, setIsCartOpen, setIsSearchOpen, setIsAuthOpen, user } = useStore();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const cartItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-  const handleSellProduct = () => {
-    if (!user) {
-      setIsAuthOpen(true);
-    } else {
-      addToast('Seller Studio opened! Upload your custom product listing.', 'info');
-    }
-  };
 
   return (
     <header className="sticky top-0 z-40 bg-white dark:bg-zinc-950 border-b border-zinc-200 dark:border-zinc-800 transition-colors">
@@ -27,21 +19,26 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 gap-4 sm:gap-6">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div className="w-8 h-8 rounded-xl bg-blue-600 text-white font-bold text-lg flex items-center justify-center shadow-md shadow-blue-600/20 group-hover:scale-105 transition-transform">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 text-white font-extrabold text-xl flex items-center justify-center shadow-md shadow-blue-600/20 group-hover:scale-105 transition-transform">
               K
             </div>
-            <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-white font-sans">
-              Kreta<span className="text-blue-600">bazaar</span>
-            </span>
+            <div className="flex flex-col">
+              <span className="font-bold text-xl tracking-tight text-zinc-900 dark:text-white font-sans leading-none">
+                Kreta<span className="text-blue-600">bazaar</span>
+              </span>
+              <span className="text-[10px] text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wider mt-0.5">
+                Dropshipping
+              </span>
+            </div>
           </Link>
 
-          {/* Nav Category Links */}
+          {/* Nav Links */}
           <nav className="hidden lg:flex items-center gap-6 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
             <Link
               href="/"
               className={`hover:text-blue-600 transition-colors ${pathname === '/' ? 'text-blue-600 font-bold' : ''}`}
             >
-              Discover
+              Shop All
             </Link>
             <Link
               href="/products?category=Apparel"
@@ -61,6 +58,15 @@ export default function Navbar() {
             >
               Digital Assets
             </Link>
+            <Link
+              href="/track-order"
+              className={`hover:text-blue-600 transition-colors flex items-center gap-1 text-xs bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full border border-blue-200 dark:border-blue-800 ${
+                pathname === '/track-order' || pathname === '/tracking' ? 'bg-blue-600 text-white border-blue-600' : ''
+              }`}
+            >
+              <Truck className="w-3.5 h-3.5" />
+              <span>Track Order</span>
+            </Link>
           </nav>
 
           {/* Global Search Bar */}
@@ -70,7 +76,7 @@ export default function Navbar() {
               className="flex items-center gap-2 bg-zinc-100 dark:bg-zinc-900 hover:bg-zinc-200/80 dark:hover:bg-zinc-800/80 text-zinc-500 dark:text-zinc-400 px-3.5 py-2 rounded-full border border-zinc-200 dark:border-zinc-800 text-xs cursor-pointer transition-colors"
             >
               <Search className="w-4 h-4 text-zinc-400" />
-              <span className="flex-1">Search custom products, tools & sellers...</span>
+              <span className="flex-1">Search products, headphones, Figma kits...</span>
               <kbd className="hidden lg:flex items-center gap-0.5 bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 text-[10px] px-1.5 py-0.5 rounded font-mono border border-zinc-200 dark:border-zinc-700 shadow-xs">
                 <Command className="w-2.5 h-2.5" /> K
               </kbd>
@@ -93,16 +99,7 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Sell Product Button */}
-            <button
-              onClick={handleSellProduct}
-              className="behance-btn-primary px-4 py-2 text-xs flex items-center gap-1.5 shadow-md shadow-blue-600/10"
-            >
-              <Plus className="w-4 h-4" />
-              <span className="hidden sm:inline">Sell Product</span>
-            </button>
-
-            {/* Auth User Button */}
+            {/* Auth Button */}
             <button
               onClick={() => setIsAuthOpen(true)}
               className="flex items-center gap-2 p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-300 transition-colors"
@@ -139,7 +136,7 @@ export default function Navbar() {
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-zinc-800 dark:text-zinc-200 text-sm font-semibold py-2 border-b border-zinc-100 dark:border-zinc-900"
           >
-            Discover Products
+            Shop All Products
           </Link>
           <Link
             href="/products?category=Apparel"
@@ -156,11 +153,11 @@ export default function Navbar() {
             Electronics
           </Link>
           <Link
-            href="/products?category=Digital%20Goods"
+            href="/track-order"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="text-zinc-800 dark:text-zinc-200 text-sm font-semibold py-2"
+            className="text-blue-600 font-bold text-sm py-2 flex items-center gap-1.5"
           >
-            Digital Assets
+            <Truck className="w-4 h-4" /> Track Order Status
           </Link>
         </div>
       )}
