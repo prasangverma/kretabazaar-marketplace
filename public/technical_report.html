@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kretabazaar - Technical Architecture & System Design Report</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      body { background: white; color: black; }
+      .no-print { display: none; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed p-6 md:p-12">
+  <div class="max-w-5xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-xl border border-slate-200">
+    
+    <!-- Header -->
+    <header class="border-b border-slate-200 pb-8 mb-10">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white font-extrabold text-2xl flex items-center justify-center shadow-lg shadow-blue-600/30">K</div>
+        <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Kretabazaar</h1>
+      </div>
+      <p class="text-xl font-bold text-blue-600">Full-Stack Dropshipping & E-Commerce Platform Architecture Report</p>
+      <p class="text-xs text-slate-500 mt-2">Generated on August 23, 2026 | Antigravity AI Engineering</p>
+    </header>
+
+    <!-- Section 1 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-4">1. Selection of Technology and Justification</h2>
+      <p class="text-sm text-slate-600 mb-6">The technology stack for Kretabazaar was strategically selected to guarantee maximum loading performance, developer productivity, type safety, and serverless scalability:</p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mb-6">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <h3 class="font-bold text-sm text-blue-700 mb-1">Frontend: Next.js 15 & React 19</h3>
+          <p class="text-slate-600">Hybrid SSR/SSG rendering model, Server Components, and Turbopack bundler for sub-second page loads and dynamic SEO optimization.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <h3 class="font-bold text-sm text-blue-700 mb-1">Styling: Tailwind CSS v4</h3>
+          <p class="text-slate-600">Utility-first atomic CSS framework compiling into minimal CSS sheets with responsive dark/light mode and glassmorphism styling.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <h3 class="font-bold text-sm text-blue-700 mb-1">Database ORM: Prisma 6 & SQLite/PostgreSQL</h3>
+          <p class="text-slate-600">End-to-end type-safe database queries, zero-config local SQLite testing, and seamless migration path to cloud PostgreSQL.</p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <h3 class="font-bold text-sm text-blue-700 mb-1">Payments: Stripe SDK & Webhooks</h3>
+          <p class="text-slate-600">PCI-DSS compliant tokenized card processing, checkout sessions, and cryptographic webhook signature verification.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-4">2. Problem and Weaknesses of Legacy Systems</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse border border-slate-200 mb-6">
+          <thead>
+            <tr class="bg-slate-100 text-slate-800 font-bold">
+              <th class="p-3 border border-slate-200">System Area</th>
+              <th class="p-3 border border-slate-200">Legacy Monolithic System Weakness</th>
+              <th class="p-3 border border-slate-200">Kretabazaar Platform Solution</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-200 text-slate-700">
+            <tr>
+              <td class="p-3 font-semibold border border-slate-200">Performance & Latency</td>
+              <td class="p-3 border border-slate-200">High Time To First Byte (TTFB), heavy PHP execution, 3s+ load times.</td>
+              <td class="p-3 border border-slate-200 font-bold text-blue-600">Next.js 15 App Router Server Components with sub-second response times.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold border border-slate-200">Inventory & Concurrency</td>
+              <td class="p-3 border border-slate-200">Race conditions causing overselling during flash sales.</td>
+              <td class="p-3 border border-slate-200 font-bold text-blue-600">Atomic Prisma ORM database transactions on verified Stripe webhooks.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold border border-slate-200">Cart Persistence</td>
+              <td class="p-3 border border-slate-200">Fragile PHP cookies cleared when switching devices or closing tabs.</td>
+              <td class="p-3 border border-slate-200 font-bold text-blue-600">Dual Cart System: Cookie session tokens merged into user cart upon login.</td>
+            </tr>
+            <tr>
+              <td class="p-3 font-semibold border border-slate-200">Logistics Tracking</td>
+              <td class="p-3 border border-slate-200">Opaque shipping requiring support emails or third-party sites.</td>
+              <td class="p-3 border border-slate-200 font-bold text-blue-600">Integrated /api/orders tracking API with 4-step real-time progress bar.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-4">3. Technology and Literature Review</h2>
+      <p class="text-sm text-slate-600 mb-4">Modern e-commerce has evolved from monolithic PHP setups to Jamstack Headless Architecture. By decoupling the presentation layer (React 19) from the backend API services (Next.js Route Handlers) and payment engines (Stripe API), Kretabazaar eliminates single points of failure, accelerates global distribution via Edge CDNs, and guarantees security.</p>
+    </section>
+
+    <!-- Section 4 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-4">4. Implementation Plan</h2>
+      <ol class="list-decimal list-inside text-xs text-slate-700 space-y-2 mb-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+        <li><strong>Phase 1: Architecture & Database Schema Design</strong> - Defined Prisma ORM data models (User, Address, Product, Cart, Order, Review, Coupon).</li>
+        <li><strong>Phase 2: Backend API & Automation Development</strong> - Built Next.js API handlers for product search, persistent cart sync, Stripe checkout, webhooks, and tracking.</li>
+        <li><strong>Phase 3: High-Conversion Frontend UI/UX Refactor</strong> - Implemented Behance product grid, PDP urgency counters, slide-over cart drawer, and live tracker.</li>
+        <li><strong>Phase 4: Deployment & Verification</strong> - Configured vercel.json, set up environment variables, and deployed live to production.</li>
+      </ol>
+    </section>
+
+    <!-- Section 5 -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-4">5. Main Modules / Components</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs mb-6">
+        <div class="p-4 rounded-xl border border-slate-200">
+          <h3 class="font-bold text-blue-600 mb-1">1. Catalog & Search</h3>
+          <p class="text-slate-600">Behance card grid, category filter pills, price sorting, and Cmd+K live auto-suggestion search dialog.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200">
+          <h3 class="font-bold text-blue-600 mb-1">2. Cart & Coupons</h3>
+          <p class="text-slate-600">Slide-over cart drawer, free shipping meter ($100 threshold), and promo coupon code applicator (KRETA15).</p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200">
+          <h3 class="font-bold text-blue-600 mb-1">3. Payments & Checkout</h3>
+          <p class="text-slate-600">Multi-gateway integration (Stripe, PayPal, Razorpay, COD) and webhook signature verification.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200">
+          <h3 class="font-bold text-blue-600 mb-1">4. Live Order Tracker</h3>
+          <p class="text-slate-600">Public tracking portal (/track-order) displaying carrier info and 4-step delivery milestone stepper.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200">
+          <h3 class="font-bold text-blue-600 mb-1">5. Seller Studio Analytics</h3>
+          <p class="text-slate-600">Gross revenue metrics, order growth counters, active stock management, and product publisher.</p>
+        </div>
+        <div class="p-4 rounded-xl border border-slate-200">
+          <h3 class="font-bold text-blue-600 mb-1">6. Verified Reviews</h3>
+          <p class="text-slate-600">Customer star ratings, media uploads, and verified buyer validation via past purchase checks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6 -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold text-slate-900 border-l-4 border-blue-600 pl-3 mb-4">6. Database Design & Entity Relationships</h2>
+      <p class="text-xs text-slate-600 mb-4">Key entities and relationships implemented in <code>prisma/schema.prisma</code>:</p>
+      <ul class="list-disc list-inside text-xs text-slate-700 space-y-1 bg-slate-50 p-4 rounded-xl border border-slate-200">
+        <li><strong>User & Address</strong>: 1-to-Many relationship for shipping and billing addresses.</li>
+        <li><strong>Category & Product</strong>: 1-to-Many relationship grouping products under categories (Apparel, Electronics, Digital, Accessories, Audio).</li>
+        <li><strong>Product & ProductVariant</strong>: 1-to-Many relationship defining SKU variations (colors, sizes, price offsets).</li>
+        <li><strong>Cart & CartItem</strong>: 1-to-Many relationship supporting guest session tokens and authenticated user accounts.</li>
+        <li><strong>Order & OrderItem</strong>: 1-to-Many relationship tracking total amounts, carrier tracking numbers, and fulfillment status.</li>
+      </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 pt-6 text-center text-xs text-slate-400">
+      <p>Kretabazaar Platform Architecture Report | Built with Next.js 15 & Prisma ORM</p>
+    </footer>
+  </div>
+</body>
+</html>
