@@ -99,23 +99,26 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* Auth Button */}
-            <button
-              onClick={() => setIsAuthOpen(true)}
-              className="flex items-center gap-2 p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-300 transition-colors"
-            >
-              {user ? (
+            {/* Auth User Button */}
+            {user ? (
+              <button
+                onClick={() => setIsAuthOpen(true)}
+                className="flex items-center gap-2 p-1 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-900 text-zinc-700 dark:text-zinc-300 transition-colors"
+              >
                 <img
                   src={user.avatar}
                   alt={user.name}
                   className="w-8 h-8 rounded-full object-cover border border-zinc-300 dark:border-zinc-700"
                 />
-              ) : (
-                <span className="px-3.5 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-900 text-xs font-semibold text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-200">
-                  Sign In
-                </span>
-              )}
-            </button>
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="px-3.5 py-1.5 rounded-full bg-zinc-100 dark:bg-zinc-900 text-xs font-semibold text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors"
+              >
+                Sign In
+              </Link>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button
@@ -146,11 +149,11 @@ export default function Navbar() {
             Apparel
           </Link>
           <Link
-            href="/products?category=Electronics"
+            href="/login"
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-zinc-800 dark:text-zinc-200 text-sm font-semibold py-2 border-b border-zinc-100 dark:border-zinc-900"
           >
-            Electronics
+            Sign In / Register
           </Link>
           <Link
             href="/track-order"
