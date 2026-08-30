@@ -13,10 +13,10 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
   return (
     <div className="group flex flex-col gap-2.5">
       {/* Thumbnail Card Container */}
-      <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 border border-slate-800 shadow-sm cursor-pointer">
+      <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800/80 shadow-xs cursor-pointer">
         {/* Featured / Discount Tag */}
         {project.originalPrice > project.price && (
-          <span className="absolute top-3 left-3 z-10 bg-[#EF4444] text-white font-extrabold text-[10px] px-2.5 py-0.5 rounded-full shadow-md">
+          <span className="absolute top-3 left-3 z-10 bg-blue-600 text-white font-bold text-[10px] px-2 py-0.5 rounded-full shadow-xs">
             -{Math.round(((project.originalPrice - project.price) / project.originalPrice) * 100)}% OFF
           </span>
         )}
@@ -28,7 +28,7 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
         />
 
         {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B192C]/90 via-[#0B192C]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-between p-4">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-between p-4">
           <div className="flex justify-end gap-2">
             <button
               onClick={(e) => {
@@ -36,7 +36,7 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
                 toggleSaveProject(project.id);
               }}
               className={`p-2 rounded-full backdrop-blur-md transition-all ${
-                isSaved ? 'bg-[#F5C542] text-[#0B192C]' : 'bg-white/80 text-slate-900 hover:bg-white'
+                isSaved ? 'bg-blue-600 text-white' : 'bg-white/80 text-zinc-900 hover:bg-white'
               }`}
               title="Save to Wishlist"
             >
@@ -47,7 +47,7 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
           <div className="flex items-center justify-between gap-2">
             <button
               onClick={() => setQuickViewProduct(project)}
-              className="px-3 py-1.5 rounded-full bg-white/90 text-[#0B192C] font-bold text-xs hover:bg-white transition-colors shadow-md flex items-center gap-1 shrink-0"
+              className="px-3 py-1.5 rounded-full bg-white/90 text-zinc-900 font-bold text-xs hover:bg-white transition-colors shadow-md flex items-center gap-1 shrink-0"
             >
               <Eye className="w-3.5 h-3.5" /> Inspect
             </button>
@@ -58,7 +58,7 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
                 e.stopPropagation();
                 addToCart(project);
               }}
-              className="px-4 py-1.5 rounded-full bg-[#F5C542] hover:bg-[#eab308] text-[#0B192C] font-bold text-xs flex items-center gap-1.5 shadow-md shadow-[#F5C542]/30 shrink-0 transition-transform active:scale-95"
+              className="behance-btn-primary px-4 py-1.5 text-xs flex items-center gap-1.5 shadow-md shadow-blue-600/20 shrink-0"
             >
               <ShoppingBag className="w-3.5 h-3.5" /> Add to Cart
             </button>
@@ -73,13 +73,13 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
           <img
             src={project.seller.avatar}
             alt={project.seller.name}
-            className="w-6 h-6 rounded-full object-cover border border-[#F5C542] shrink-0"
+            className="w-6 h-6 rounded-full object-cover border border-zinc-300 dark:border-zinc-700 shrink-0"
           />
           <div className="min-w-0">
-            <h5 className="font-bold text-slate-900 dark:text-white truncate hover:underline cursor-pointer">
+            <h5 className="font-bold text-zinc-900 dark:text-white truncate hover:underline cursor-pointer">
               {project.title}
             </h5>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 block truncate">
+            <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block truncate">
               {project.seller.name}
             </span>
           </div>
@@ -87,11 +87,11 @@ export default function ProjectCard({ project }: { project: CustomProduct }) {
 
         {/* Product Price Display */}
         <div className="flex items-baseline gap-1.5 text-right shrink-0 ml-2">
-          <span className="font-extrabold text-sm text-[#0B192C] dark:text-[#F5C542]">
+          <span className="font-bold text-sm text-blue-600 dark:text-blue-400">
             ${project.price.toFixed(2)}
           </span>
           {project.originalPrice > project.price && (
-            <span className="text-[11px] text-slate-400 line-through hidden sm:inline">
+            <span className="text-[11px] text-zinc-400 line-through hidden sm:inline">
               ${project.originalPrice.toFixed(2)}
             </span>
           )}

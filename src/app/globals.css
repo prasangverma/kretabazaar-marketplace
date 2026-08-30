@@ -3,32 +3,28 @@
 @layer base {
   :root {
     --background: #ffffff;
-    --foreground: #0b192c;
+    --foreground: #111111;
     --card: #ffffff;
-    --card-foreground: #0b192c;
-    --border: #e2e8f0;
-    --primary: #0b192c;
+    --card-foreground: #111111;
+    --border: #e5e7eb;
+    --primary: #0057ff;
     --primary-foreground: #ffffff;
-    --accent-gold: #f5c542;
-    --accent-teal: #14b8a6;
-    --accent-coral: #ef4444;
-    --muted: #f1f5f9;
-    --muted-foreground: #64748b;
+    --muted: #f4f4f5;
+    --muted-foreground: #71717a;
+    --behance-blue: #0057ff;
+    --behance-blue-hover: #0046cc;
   }
 
   .dark {
-    --background: #0b192c;
-    --foreground: #f8fafc;
-    --card: #0f213a;
-    --card-foreground: #f8fafc;
-    --border: #1e3a5f;
-    --primary: #f5c542;
-    --primary-foreground: #0b192c;
-    --accent-gold: #f5c542;
-    --accent-teal: #2dd4bf;
-    --accent-coral: #f87171;
-    --muted: #0f213a;
-    --muted-foreground: #94a3b8;
+    --background: #09090b;
+    --foreground: #f4f4f5;
+    --card: #18181b;
+    --card-foreground: #f4f4f5;
+    --border: #27272a;
+    --primary: #0057ff;
+    --primary-foreground: #ffffff;
+    --muted: #18181b;
+    --muted-foreground: #a1a1aa;
   }
 }
 
@@ -41,7 +37,7 @@ body {
 
 .behance-card {
   background: var(--card);
-  border-radius: 16px;
+  border-radius: 12px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -50,38 +46,27 @@ body {
 }
 
 .behance-btn-primary {
-  background-color: #0b192c;
+  background-color: #0057ff;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 600;
   border-radius: 9999px;
-  transition: all 0.2s ease;
+  transition: background-color 0.15s ease, transform 0.15s ease;
 }
 
 .behance-btn-primary:hover {
-  background-color: #162a45;
-  box-shadow: 0 4px 14px 0 rgba(11, 25, 44, 0.35);
-}
-
-.dark .behance-btn-primary {
-  background-color: #f5c542;
-  color: #0b192c;
-}
-
-.dark .behance-btn-primary:hover {
-  background-color: #eab308;
-  box-shadow: 0 4px 14px 0 rgba(245, 197, 66, 0.35);
+  background-color: #0046cc;
 }
 
 .behance-btn-secondary {
-  background-color: #f1f5f9;
-  color: #0b192c;
+  background-color: #f4f4f5;
+  color: #18181b;
   font-weight: 600;
   border-radius: 9999px;
   transition: background-color 0.15s ease;
 }
 
 .behance-btn-secondary:hover {
-  background-color: #e2e8f0;
+  background-color: #e4e4e7;
 }
 
 /* Smooth Scrollbars */
@@ -95,10 +80,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d4d4d8;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #a1a1aa;
 }
